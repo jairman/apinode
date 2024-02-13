@@ -4,6 +4,8 @@ import morgan from 'morgan';
 // Routes
 
 import languageRoutes from './routes/language.routes';
+import authRouter from './routes/auth.routes';
+
 
 
 const app = express();
@@ -18,6 +20,11 @@ app.use( express.json() );
 
 
 // Routes
+
+// Define tus rutas para el login, registro, etc.
+app.use('/api/auth', authRouter);
+
 app.use('/api/languages', languageRoutes);
+
 
 export default app;
