@@ -1,8 +1,10 @@
 const bcrypt = require('bcryptjs');
 const jwt    = require('jsonwebtoken');
+import config from './../config.js'
 
 
-import {getConnection} from './../database/database'
+import {getConnection} from './../database/database.js'
+
 
 const  login = async (req, res) => {
     try {
@@ -34,9 +36,11 @@ const  login = async (req, res) => {
             }
         
             // Genera el token JWT
-            const token = jwt.sign({ userId: user.id }, 'tu_secreto', { expiresIn: '1h' });
+            const token = jwt.sign({ userId: user.id }, config.token , { expiresIn: '1h' });
+
+            res.header( "auth-token", token ).json({ token,  'status' : true, data: user.id });
         
-            res.status(200).json({ token });
+            //res.status(200).json({ token,  'status' : true, data: user.id });
           });
 
 
@@ -94,9 +98,11 @@ const register = async (req, res)=> {
 };
 
 
+
 export const methods = {
    login,
    register
+   
 }
 
 

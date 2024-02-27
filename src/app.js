@@ -1,10 +1,11 @@
 import express from 'express';
 import morgan from 'morgan';
+import cors from 'cors';
 
 // Routes
 
-import languageRoutes from './routes/language.routes';
-import authRouter from './routes/auth.routes';
+import languageRoutes from './routes/language.routes.js';
+import authRouter from './routes/auth.routes.js';
 
 
 
@@ -17,6 +18,7 @@ app.set( 'port', 4000 );
 // Middlewares
 app.use( morgan('dev') );
 app.use( express.json() );
+app.use(cors({credentials: true, origin: 'http://localhost:5173'}));
 
 
 // Routes
@@ -25,6 +27,8 @@ app.use( express.json() );
 app.use('/api/auth', authRouter);
 
 app.use('/api/languages', languageRoutes);
+
+
 
 
 export default app;
